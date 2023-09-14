@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NxWelcome from './nx-welcome';
 
 const StyledApp = styled.div`
-  // Your style here updates
+  // Your style here updates-new
 `;
 
 export function App() {
