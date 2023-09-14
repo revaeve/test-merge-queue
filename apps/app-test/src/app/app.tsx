@@ -9,7 +9,7 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <NxWelcome title="app-test" />
+      <NxWelcome title="app-test-updates" />
     </StyledApp>
   );
 }
