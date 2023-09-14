@@ -30,7 +30,7 @@ export function NxWelcome({ title }: { title: string }) {
     h2,
     p,
     pre {
-      margin: 0;
+      margin: 10;
     }
     *,
     ::before,
