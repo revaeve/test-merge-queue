@@ -27,6 +27,8 @@ jobs:
 
       - name: Update changelogs in affected directories
         run: |
+          $CHANGED_DIRS = ${{ steps.nx-changes.outputs.changed-dirs }}
+          $COMMIT_MESSAGE = ${{ github.event.head_commit.message }}
           for dir in $CHANGED_DIRS; do
             changelog_path="$dir/CHANGELOG.md"
             if [[ -f $changelog_path ]]; then
