@@ -27,12 +27,9 @@ jobs:
 
       - name: Update changelogs in affected directories
         run: |
-          for dir in ${{ steps.nx-changes.outputs.changed-dirs }}; do
-            changelog_path="$dir/CHANGELOG.md"
-            if [[ -f $changelog_path ]]; then
-              echo -e "\n---\n\nCommit Message: ${{ github.event.head_commit.message }}\n" >> $changelog_path
-            fi
-          done
+          if [[ -f ${{ steps.nx-changes.outputs.changed-dirs }} ]]; then
+            echo -e "\n---\n\nCommit Message: ${{ github.event.head_commit.message }}\n" >> ${{ steps.nx-changes.outputs.changed-dirs }}
+          fi
 
       - name: Commit and push changes if there are any
         run: |
