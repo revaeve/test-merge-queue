@@ -15,9 +15,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
 
-      - name: Detect changed directories
-        uses: gagle/nx-check-changes@v1.0.0
-        id: nx-changes
+      - uses: nrwl/nx-set-shas@v3
 
       - name: Log affected directories
         run: echo ${{ steps.nx-changes.outputs.changed-dirs }}
@@ -25,11 +23,17 @@ jobs:
       - name: Log latest commit message
         run: echo ${{ github.event.head_commit.message }}
 
-      - name: Update changelogs in affected directories
-        run: |
-          if [[ -f ${{ steps.nx-changes.outputs.changed-dirs }} ]]; then
-            echo -e "\n---\n\nCommit Message: ${{ github.event.head_commit.message }}\n" >> ${{ steps.nx-changes.outputs.changed-dirs }}
-          fi
+      # - name: Update changelogs in affected directories
+      #   run: |
+      #     echo -e "\n---\n\nCommit Message: ${{ github.event.head_commit.message }}\n" >> ${{ steps.nx-changes.outputs.changed-dirs }}
+
+      - name: Generate affected graph json
+        run: npx nx affected:graph --file=affected.json
+
+      - name: Update changelogs
+        run: node scripts/update-changelogs.js
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
       - name: Commit and push changes if there are any
         run: |
