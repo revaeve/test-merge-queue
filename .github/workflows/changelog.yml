@@ -36,6 +36,10 @@ jobs:
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
+      - name: Show diff
+        run: |
+          git diff --exit-code
+
       - name: Commit and push changes if there are any
         run: |
           git config --global user.name 'GitHub Action'
