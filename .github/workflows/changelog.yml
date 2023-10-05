@@ -25,6 +25,39 @@ jobs:
       - name: Log latest commit message
         run: echo ${{ github.event.head_commit.message }}
 
+      - name: Update changelogs in affected directories
+        run: |
+          for dir in $CHANGED_DIRS; do
+            changelog_path="$dir/CHANGELOG.md"
+            if [[ -f $changelog_path ]]; then
+              echo -e "\n---\n\nCommit Message: $COMMIT_MESSAGE\n" >> $changelog_path
+            fi
+          done
+
+      - name: Commit and push changes if there are any
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
+
+      # script for modify changelog
+
+      # - name: Setup Git
+      #   run: |
+      #     git config user.name "GitHub Bot"
+      #     git config user.email "gituser@example.com"
+      # - run: yarn install --frozen-lockfile
+      # - name: Version
+      #   shell: bash
+      #   run: yarn nx affected --base=last-release --target=version
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Tag last-release
+      #   shell: bash
+      #   run: |
+      #     git tag -f last-release
+      #     git push origin last-release --force
+
       # - run: npx nx run-many --target=lint
       # - run: npx nx run-many --target=build
       # - run: npx nx run-many --target=test --configuration=ci
