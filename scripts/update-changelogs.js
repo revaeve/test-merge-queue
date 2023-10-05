@@ -38,7 +38,7 @@ try {
       console.log(`Updated ${changelogPath}`);
     } else {
       console.log(
-        `No CHANGELOG.md found in ${fullPath}. Skipping changelog update. Creating one for you.`
+        `No CHANGELOG.md found in ${fullPath}. Creating one for you.`
       );
       fs.writeFileSync(changelogPath, `${COMMIT_MESSAGE}\n`, 'utf8');
     }
