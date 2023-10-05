@@ -22,6 +22,9 @@ jobs:
       - name: Log affected directories
         run: echo ${{ steps.nx-changes.outputs.changed-dirs }}
 
+      - name: Log latest commit message
+        run: echo ${{ github.event.head_commit.message }}
+
       # - run: npx nx run-many --target=lint
       # - run: npx nx run-many --target=build
       # - run: npx nx run-many --target=test --configuration=ci
