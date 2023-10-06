@@ -8,18 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-          persist-credentials: false
-
+          # ref: ${{ github.event.pull_request.head.ref }}
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
 
-      - name: Log affected directories
-        run: echo ${{ steps.nx-changes.outputs.changed-dirs }}
+      # - name: Log affected directories
+      #   run: echo ${{ steps.nx-changes.outputs.changed-dirs }}
 
       - name: Log latest commit message
         run: echo ${{ github.event.head_commit.message }}
@@ -36,9 +37,9 @@ jobs:
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
-      - name: Show diff
-        run: |
-          git diff --exit-code
+      # - name: Show diff
+      #   run: |
+      #     git diff --exit-code
 
       # - name: Commit and push changes if there are any
       #   run: |
@@ -49,7 +50,6 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update CHANGELOG.md in affected apps
-          commit_options: '--no-verify --signoff'
 
       # script for modify changelog
 
