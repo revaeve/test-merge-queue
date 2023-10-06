@@ -13,10 +13,10 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
-      - uses: nrwl/nx-set-shas@v3
-      - run: npm ci
+          persist-credentials: false
 
       - uses: nrwl/nx-set-shas@v3
+      - run: npm ci
 
       - name: Log affected directories
         run: echo ${{ steps.nx-changes.outputs.changed-dirs }}
