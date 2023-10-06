@@ -37,18 +37,18 @@ jobs:
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
-      # - name: Show diff
+      # - name: Commit and push changes if there are any
       #   run: |
-      #     git diff --exit-code
-
-      - name: Commit and push changes if there are any
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
+      #     git config --global user.name 'GitHub Action'
+      #     git config --global user.email 'action@github.com'
+      #     git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
 
       # - uses: stefanzweifel/git-auto-commit-action@v4
       #   with:
       #     commit_message: Update CHANGELOG.md in affected apps
 
-      # script for modify changelog
+      - name: Pushing to the protected branch
+        uses: CasperWA/push-protected@v2
+        with:
+          token: ${{ secrets.PUSH_TO_PROTECTED_BRANCH }}
+          branch: main
