@@ -41,34 +41,14 @@ jobs:
       #   run: |
       #     git diff --exit-code
 
-      # - name: Commit and push changes if there are any
-      #   run: |
-      #     git config --global user.name 'GitHub Action'
-      #     git config --global user.email 'action@github.com'
-      #     git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
+      - name: Commit and push changes if there are any
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update CHANGELOG.md in affected apps
+      # - uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: Update CHANGELOG.md in affected apps
 
       # script for modify changelog
-
-      # - name: Setup Git
-      #   run: |
-      #     git config user.name "GitHub Bot"
-      #     git config user.email "gituser@example.com"
-      # - run: yarn install --frozen-lockfile
-      # - name: Version
-      #   shell: bash
-      #   run: yarn nx affected --base=last-release --target=version
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Tag last-release
-      #   shell: bash
-      #   run: |
-      #     git tag -f last-release
-      #     git push origin last-release --force
-
-      # - run: npx nx run-many --target=lint
-      # - run: npx nx run-many --target=build
-      # - run: npx nx run-many --target=test --configuration=ci
