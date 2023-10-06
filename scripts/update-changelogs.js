@@ -15,7 +15,7 @@ try {
   const affectedProjects = affectedParsed.affectedProjects;
 
   if (!affectedProjects.length) {
-    console.log('No affected directories found. Skipping changelog update.');
+    console.log('No affected apps found. Skipping update.');
     return;
   }
 
@@ -27,10 +27,9 @@ try {
 
   affectedApps.forEach((appName) => {
     const fullPath = path.join(__dirname, '../apps/', appName);
+
+    // Add commit message to changelog
     const changelogPath = path.join(fullPath, 'CHANGELOG.md');
-
-    console.log(`Checking for ${changelogPath}`);
-
     if (fs.existsSync(changelogPath)) {
       let changelogContent = fs.readFileSync(changelogPath, 'utf8');
       changelogContent += `\n---\n\n${COMMIT_MESSAGE}\n`;
@@ -41,6 +40,33 @@ try {
         `No CHANGELOG.md found in ${fullPath}. Creating one for you.`
       );
       fs.writeFileSync(changelogPath, `${COMMIT_MESSAGE}\n`, 'utf8');
+    }
+
+    // Increase version for affected app
+    const packageJsonPath = path.join(fullPath, 'package.json');
+    if (fs.existsSync(packageJsonPath)) {
+      const packageJson = require(packageJsonPath);
+      const version = packageJson.version;
+      const versionParts = version.split('.');
+      const newVersion = `${versionParts[0]}.${versionParts[1]}.${
+        parseInt(versionParts[2]) + 1
+      }`;
+      packageJson.version = newVersion;
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2),
+        'utf8'
+      );
+      console.log(`Increased version to ${newVersion} in ${packageJsonPath}`);
+    } else {
+      console.log(
+        `No package.json found in ${fullPath}. Creating one for you.`
+      );
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify({ version: '0.0.1' }, null, 2),
+        'utf8'
+      );
     }
   });
 } catch (e) {
