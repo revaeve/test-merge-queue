@@ -43,6 +43,12 @@ jobs:
       #     git config --global user.email 'action@github.com'
       #     git diff --exit-code || (git add . && git commit -m "Update CHANGELOG.md in affected directories" && git push)
 
+      - name: Test create one file
+        run: |
+          touch test.txt
+          git add .
+          git commit -m "Create test.txt"
+
       - name: Pushing to the protected branch
         uses: CasperWA/push-protected@v2
         with:
@@ -50,9 +56,9 @@ jobs:
           branch: main
           unprotect_reviews: true
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update CHANGELOG.md in affected apps
+      # - uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: Update CHANGELOG.md in affected apps
 
       # - name: Commit and push
       #   run: |
