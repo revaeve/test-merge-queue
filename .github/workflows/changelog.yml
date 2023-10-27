@@ -46,6 +46,8 @@ jobs:
       - name: Test create one file
         run: |
           touch test.txt
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add .
           git commit -m "Create test.txt"
 
