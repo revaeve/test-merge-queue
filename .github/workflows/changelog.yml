@@ -45,6 +45,8 @@ jobs:
 
       - name: Test create one file
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           touch test.txt
           git add .
           git commit -m "Create test.txt"
@@ -62,6 +64,4 @@ jobs:
 
       - name: Commit and push
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git push
