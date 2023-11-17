@@ -28,8 +28,8 @@ jobs:
       #   run: |
       #     echo -e "\n---\n\nCommit Message: ${{ github.event.head_commit.message }}\n" >> ${{ steps.nx-changes.outputs.changed-dirs }}
 
-      - name: Generate affected graph json
-        run: npx nx affected:graph --file=affected.json
+      # - name: Generate affected graph json
+      #   run: npx nx affected:graph --file=affected.json
 
       - name: Update changelogs
         run: node scripts/update-changelogs.js
