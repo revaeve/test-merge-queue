@@ -47,7 +47,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git remote set-url origin https://GitHub_Action:${{ secrets.PUSH_TO_PROTECTED_BRANCH }}@github.com:revaeve/test-merge-queue.git
+          git remote set-url origin https://GitHub_Action:${{ secrets.PUSH_TO_PROTECTED_BRANCH }}@github.com/revaeve/test-merge-queue.git
           echo "hello" >> test.txt
           git add .
           git commit -m "Update test.txt"
