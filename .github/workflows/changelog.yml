@@ -47,9 +47,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          touch test.txt
+          echo "hello" >> test.txt
           git add .
-          git commit -m "Create test.txt"
+          git commit -m "Update test.txt"
 
       # - name: Pushing to the protected branch
       #   uses: CasperWA/push-protected@v2
