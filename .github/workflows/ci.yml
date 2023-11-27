@@ -28,9 +28,6 @@ jobs:
       - name: Test build to skip when in merge queue
         if: github.event_name == 'pull_request'
         run: npx nx run-many --target=build
-      # - run: npx nx run-many --target=lint
-      # - run: npx nx run-many --target=build
-      # - run: npx nx run-many --target=test --configuration=ci
 
   test-final-check:
     needs: [build]
@@ -38,4 +35,5 @@ jobs:
 
     steps:
       - name: "Final check test"
+        if: ${{ always() && !cancelled() && !failure() }}
         run: echo "final check"
