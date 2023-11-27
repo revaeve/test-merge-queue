@@ -31,3 +31,11 @@ jobs:
       # - run: npx nx run-many --target=lint
       # - run: npx nx run-many --target=build
       # - run: npx nx run-many --target=test --configuration=ci
+
+  test-final-check:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Final check test"
+        run: echo "final check"
