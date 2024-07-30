@@ -46,7 +46,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.event.head_commit.message }} # e.g. "Test: AB#16845 try to return PR number"
-          regex: '^\w+:\s(.+#\d+).*$'
+          regex: '#(\d+)'
 
       - name: Echo PR number Test 2
         run: |
