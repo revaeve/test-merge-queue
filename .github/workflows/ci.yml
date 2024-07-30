@@ -34,10 +34,18 @@ jobs:
           echo ${{ github.event.pull_request.number }}
           echo ${{ github.event.number }}
 
+      - name: Echo commit title 1
+        run: |
+          echo "${{ github.event.pull_request.title }}"
+
+      - name: Echo commit title 2
+        run: |
+          echo "${{ github.event.head_commit.message }}"
+
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: ${{ github.event.pull_request.title }} # e.g. "Test: AB#16845 try to return PR number"
+          text: ${{ github.event.head_commit.message }} # e.g. "Test: AB#16845 try to return PR number"
           regex: '^\w+:\s(.+#\d+).*$'
 
       - name: Echo PR number Test 2
