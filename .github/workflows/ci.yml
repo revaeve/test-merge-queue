@@ -29,6 +29,21 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npx nx run-many --target=build
 
+      - name: Echo PR number Test 1
+        run: |
+          echo ${{ github.event.pull_request.number }}
+          echo ${{ github.event.number }}
+
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ github.event.pull_request.title }} # e.g. "Test: AB#16845 try to return PR number"
+          regex: '^\w+:\s(.+#\d+).*$'
+
+      - name: Echo PR number Test 2
+        run: |
+          echo "${{ steps.regex-match.outputs.group1 }}"
+
   test-final-check:
     needs: [build]
     runs-on: ubuntu-latest
