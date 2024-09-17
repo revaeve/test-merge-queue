@@ -5,6 +5,6 @@ import Lib1 from './lib1';
 describe('Lib1', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<Lib1 />);
-    expect(baseElement).toBeTruthy();
+    expect(baseElement).toBeFalsy();
   });
 });
